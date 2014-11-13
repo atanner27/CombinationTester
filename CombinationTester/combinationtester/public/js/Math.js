@@ -36,7 +36,7 @@ for(var i =0; i < combs.length; i++)
 	returnVar += "<tr>";
 	console.log("llop combs is:" + combs[i]);
 	returnVar += "<td>";
-	returnVar += combs[i];
+	returnVar += combs[i]; 
 	returnVar+= "</td>";
 	returnVar+= "</tr>";
 
