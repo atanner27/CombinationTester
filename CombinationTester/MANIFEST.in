@@ -1,0 +1,3 @@
+include combinationtester/config/deployment.ini_tmpl
+recursive-include combinationtester/public *
+recursive-include combinationtester/templates *
