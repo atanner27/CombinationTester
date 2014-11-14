@@ -112,13 +112,15 @@ function buildReturn(combs)
 {
 //Build the table response
 var returnVar = "<tr>" +
-            "<th>Combinations</th>" +
+            "<th>#</th>" + "<th>Combinations</th>" +
            
             "</tr>";
 for(var i =0; i < combs.length; i++)
 {
 	returnVar += "<tr>";
-	console.log("llop combs is:" + combs[i]);
+	returnVar += "<td>";
+	returnVar += i; 
+	returnVar+= "</td>";
 	returnVar += "<td>";
 	returnVar += combs[i]; 
 	returnVar+= "</td>";
