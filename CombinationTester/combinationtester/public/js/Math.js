@@ -13,83 +13,49 @@ function Calc()
 	}
 
 
-//permute();
+//get Permutations
 var permutations = doMath(arr);
-console.log("permutations" + permutations);
 //Go through all of the permutaions
 for(var i=0; i < permutations.length; i++)
 {
-	//console.log("permutations i = " + permutations[i]);
 	//start from the beginning of the array
 	for(var totalMax = 1; totalMax < arr.length + 1; totalMax++)
 	{
 		var sum = 0;
 		//Grab the current section of numbers
 		var subPerm = permutations[i].slice(0, totalMax);
-		//console.log("subPerm is:" + subPerm);
-		//subPerm.foreach()
+		
 		//add the current section together
 		for(var j = 0; j < subPerm.length; j++)
 		//for(val of subPerm)
 		{
-			//console.log("curval is:" + val + "sum is:" + sum);
-			//see if the totals match, get around decimal problems
+			//see if the totals match, gets around decimal problems
 			sum = (sum * 100 + subPerm[j] * 100) / 100; 
 		}
-		//console.log("total is:" + Total + " curnum is:" + sum);
 		if(sum == Total)
 		{
-			//add
-			//console.log("found it" + subPerm);
-			//console.log("sorted is:" + subPerm.sort);
-			//console.log(combs.indexOf(subPerm.sort));
-			var testing = subPerm.sort();
-			console.log("combs is" + combs);
-			console.log("val is" + testing);
-			console.log("index is" + combs.indexOf(testing));	
+			//sort to make duplicate check easier
+			var sorted = subPerm.sort();	
 			//Need to check if it exists in the solutions already	
-			if(!isDuplicate(combs, testing))
+			if(!isDuplicate(combs, sorted))
 			{
-				console.log("not there");
-				combs.push(testing);
+				//new item, add to result
+				combs.push(sorted);
 			}	
-			// if(combs.indexOf(testing) == -1)
-			// {
-			// combs.push(testing);
-			// console.log("adding:" + testing);
-			// }
+			
 		}
 	}
 
 }
 
-console.log("before return, combs is" + combs);
-//Build the table response
-var returnVar = "<tr>" +
-            "<th>Combinations</th>" +
-           
-            "</tr>";
-for(var i =0; i < combs.length; i++)
-{
-	returnVar += "<tr>";
-	console.log("llop combs is:" + combs[i]);
-	returnVar += "<td>";
-	returnVar += combs[i]; 
-	returnVar+= "</td>";
-	returnVar+= "</tr>";
-
-}
-
-
+//build response and add it to page
+var returnVar = buildReturn(combs);
 document.getElementById("ResultsTable").innerHTML =  returnVar;
-
 }
 
-
+//Handles doing the permutations and slicing recursively
 function doMath(input)
 {
-	
-
 	var permArr = [],
 usedChars = [];
 function permute(input) {
@@ -106,7 +72,6 @@ function permute(input) {
     }
     return permArr
 };
-//console.log("permutation:" + permute(input));
 return permute(input);
 }
 
@@ -114,44 +79,25 @@ return permute(input);
 //return true if it is a duplicate
 function isDuplicate(combs, newSet)
 {
-	//loop through the sets
-	console.log("curSet is:" + combs);
-	console.log("curSet after sort" + combs.length);
 	//if it is empty, return false
 	if(combs.length == 0 )
 	{
 		return false;
 	}
+	//loop through array of sets
 	for(var i= 0; i < combs.length; i ++)
 	{
-		console.log("comb i" + combs[i]);
 		totalMatching = 0;
+		//loop through each set and compare
 		for(var j = 0; j < combs[i].length; j++)
 		{
-		console.log("comp, combs i {J} is :" + combs[i][j]);
-		console.log("newSet J  is:" + newSet[j]);
-
+		//if the numbers are the same, increment the counter
 		if(combs[i][j] == newSet[j])
 		{
 			totalMatching++;
 		}
-
-		//this does not work because it will fail if ther first set is different
-		//loop through the elements
-		//checking against each other
-		// console.log("comb i" + combs[i]);
-		// for(var j = 0; j < combs[i].length; j++)
-		// {
-		// console.log("comp, combs i {J} is :" + combs[i][j]);
-		// console.log("newSet J  is:" + newSet[j]);
-		// if(combs[i][j] != newSet[j])
-		// {
-		// 	return false;
-		// }
-
 		}
-		console.log("combs i length is" + combs[i].length);
-		console.log("totalMatching is" + totalMatching);
+		//if the number correct are the same as the total number, the sets are the same
 		if(totalMatching == combs[i].length)
 		{
 			return true;
@@ -161,12 +107,23 @@ function isDuplicate(combs, newSet)
 
 }
 
+//Take in the array of finished sets. build response
+function buildReturn(combs)
+{
+//Build the table response
+var returnVar = "<tr>" +
+            "<th>Combinations</th>" +
+           
+            "</tr>";
+for(var i =0; i < combs.length; i++)
+{
+	returnVar += "<tr>";
+	console.log("llop combs is:" + combs[i]);
+	returnVar += "<td>";
+	returnVar += combs[i]; 
+	returnVar+= "</td>";
+	returnVar+= "</tr>";
 
-
-
-
-
-
-
-
-
+}
+return returnVar;
+}
