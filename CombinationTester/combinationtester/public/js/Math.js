@@ -1,27 +1,40 @@
 function Calc()
 {
+	//testing'
+	//var elem = document.createElement("img");
+	//elem.id = "testing";
+	//elem.style.width = "75px";
+	//document.getElementById("spinDiv").appendChild(elem);
+	var load = document.getElementById("loader1000").style.display = "inline";
+	//load.style.display = "inline";
+	console.log("should be visible now");
+	//elem.src = '../img/loader.gif';
 	var foo = document.getElementById("Total").value;
 	var num = document.getElementById("Numbers").value;
+
+
 	var Total = parseFloat(foo);
 	var combs = [];
 	//testing
 	//result = string.split(/\t/)
 	var res = num.split(/\t/);
-	var tabs = num.split(/\t/);
+	//date.split(/[.,\/ -]/)
+	var tabs = num.split(/[\t]+/);
 	var commas = num.split(",");
+	//split(" +");
 	var spaces = num.split(" ");
-	//alert("tabs" + res.length);
-	//alert("commas" + commas.length);
-	//alert("spaces" + spaces.length);
+	console.log("tabs are:" + tabs);
+	console.log("commas" + commas);
+	console.log("spaces" + spaces);
 
-	if(tabs.length > 1)
-	{
-		res = tabs;
-	}
-	else if(commas.length > 1)
+	if(commas.length > 1)
 	{
 		res = commas;
 	}
+	else if(tabs.length > 1)
+	{
+		res = tabs;
+	}	
 	else if(spaces.length > 1)
 	{
 		res  = spaces;
@@ -72,11 +85,20 @@ for(var i=0; i < permutations.length; i++)
 		}
 	}
 
+
+
 }
 
+
+//alert("removed");
+//document.getElementById("spinDiv").removeChild(Node);
 //build response and add it to page
 var returnVar = buildReturn(combs);
 document.getElementById("ResultsTable").innerHTML =  returnVar;
+//remove loading
+var Node = document.getElementById("loader1000");
+//Node.style.display = "none";
+console.log("should be hidden now ");
 }
 
 //Handles doing the permutations and slicing recursively
