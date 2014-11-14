@@ -1,56 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-   	</head>
-    <body>
-    	<div id="container">
-          <div class="panel panel-default">
-    	<div class="panel panel-heading">
-    	<h1>Combination Printer</h1>
-    	</div>
-    <div id="inputArea">
-    	<p class="lead">
-    Please enter Total here
-    <input type="text" name="Total" id="Total" />
-    </p>
-    
-    	<p class="lead">
-    Please enter numbers here, split by commas: 
-    <input type="text" name="Numbers" id="Numbers" />
+   <head>
+   </head>
+   <body>
+      <div id="container" class="container-fluid">
+         <div class="panel panel-default">
+            <div class="panel panel-heading">
+               <h1>Combination Printer</h1>
+            </div>
+            <div id="inputArea">
+               <p class="lead">
+                  Please enter total here:
+                  <input type="text" name="Total" id="Total" />
+               </p>
+               <p class="lead">
+                  Please enter numbers here, split by commas: 
+                  <input type="text" name="Numbers" id="Numbers" />
 
-    </p>
-    <p>
-    <button type="button" onclick="Calc()">Submit</button>
-    </p>
-    </div>
-    <div id="outputArea">
-
-        <h2>Output</h2>
-       
-    
-    <table class="table table-striped" id="ResultsTable" style="width : 50%">
-    <tr>
-    </tr>
-
-    </table>
-    </div>
-
-
-
-</div>
-        </div>
-<script src="../js/Math.js"></script>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-    </body>
+               </p>
+               <p>
+                  <button type="button" class="btn btn-success" onclick="Calc()">Submit</button>
+               </p>
+            </div>
+            <div id="outputArea">
+               <h2>Output</h2>
+               <table class="table table-striped" id="ResultsTable" style="width : 50%">
+                  <tr>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <script src="../js/Math.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+   </body>
