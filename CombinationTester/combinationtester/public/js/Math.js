@@ -16,19 +16,25 @@ function Calc()
 //permute();
 var permutations = doMath(arr);
 console.log("permutations" + permutations);
+//Go through all of the permutaions
 for(var i=0; i < permutations.length; i++)
 {
 	//console.log("permutations i = " + permutations[i]);
+	//start from the beginning of the array
 	for(var totalMax = 1; totalMax < arr.length + 1; totalMax++)
 	{
 		var sum = 0;
+		//Grab the current section of numbers
 		var subPerm = permutations[i].slice(0, totalMax);
 		//console.log("subPerm is:" + subPerm);
 		//subPerm.foreach()
-		for(val of subPerm)
+		//add the current section together
+		for(var j = 0; j < subPerm.length; j++)
+		//for(val of subPerm)
 		{
 			//console.log("curval is:" + val + "sum is:" + sum);
-			sum += val;
+			//see if the totals match, get around decimal problems
+			sum = (sum * 100 + subPerm[j] * 100) / 100; 
 		}
 		//console.log("total is:" + Total + " curnum is:" + sum);
 		if(sum == Total)
@@ -40,57 +46,27 @@ for(var i=0; i < permutations.length; i++)
 			var testing = subPerm.sort();
 			console.log("combs is" + combs);
 			console.log("val is" + testing);
-			console.log("index is" + combs.indexOf(testing));			
-			if(combs.indexOf(testing) == -1)
+			console.log("index is" + combs.indexOf(testing));	
+			//Need to check if it exists in the solutions already	
+			if(!isDuplicate(combs, testing))
 			{
-			combs.push(testing);
-			console.log("adding:" + testing);
-			}
+				console.log("not there");
+				combs.push(testing);
+			}	
+			// if(combs.indexOf(testing) == -1)
+			// {
+			// combs.push(testing);
+			// console.log("adding:" + testing);
+			// }
 		}
 	}
 
 }
 
-// for(perm in permutations)
-// {
-// 	console.log("perm is:" + perm);
-// 	for(totalMax = 1; totalMax < arr.length + 1; totalMax++)
-// 	//for (totalMax in range(1, (arr.length) + 1))
-// 	{
-// 		var sum = 0;
-// 		var subPerm = perm.slice(0, totalMax);
-// 		console.log("subPerm is:" + subPerm);
-// 		for(val in subPerm)
-// 		{
-// 			console.log("curval is:" + val + "sum is:" + sum);
-// 			sum += val;
-// 		}
-// 		console.log("total is:" + Total + " curnum is:" + sum);
-// 		if(sum == Total)
-// 		{
-// 			//add
-// 			console.log("found it" + subPerm);
-// 		}
-// 	}
-// }
-// for perm in all_perms(numbers):
-// 	for totalMax in range(1, (len(numbers) + 1)):
-// 		sum = 0
-// 		subPerm = perm[0: totalMax]
-// 		for val in subPerm:
-// 			sum += val
-
-// 		if(sum == numA):
-// 			print subPerm
-
-
-
-//console.log("permutation math:" + doMath([5, 3, 7, 1]));
-
 console.log("before return, combs is" + combs);
 //Build the table response
 var returnVar = "<tr>" +
-            "<th>Combination #</th>" +
+            "<th>Combinations</th>" +
            
             "</tr>";
 for(var i =0; i < combs.length; i++)
@@ -135,39 +111,37 @@ return permute(input);
 }
 
 
-function Swap(arr, index)
+//return true if it is a duplicate
+function isDuplicate(combs, newSet)
 {
-temp = 0;
-temp = arr[0];
-arr[0] = arr[index];
-arr[index] = temp;
-
-return arr;
-}
-function Permutate(arr)
-{
-var curArray = [];
-	sum = 0;
-	for(var i = 0; i < arr.length; i ++)
+	//loop through the sets
+	console.log("curSet is:" + combs);
+	console.log("set length is:" + combs.length);
+	//if it is empty, return false
+	if(combs.length == 0 )
 	{
-		curArray.push(arr[i]);
-		sum += arr[i];
-		console.log("cur sum is:" + sum);
-		if(sum == Total)
+		return false;
+	}
+	for(var i= 0; i < combs.length; i ++)
+	{
+		//loop through the elements
+		//checking against each other
+		console.log("comb i" + combs[i]);
+		for(var j = 0; j < combs[i].length; j++)
 		{
-			combs.push(curArray);
-			console.log("found one:" + curArray);
+		console.log("comp, combs i {J} is :" + combs[i][j]);
+		console.log("newSet J  is:" + newSet[j]);
+		if(combs[i][j] != newSet[j])
+		{
+			return false;
+		}
+
 		}
 	}
-
-
-	return 
-}
-
-function Response()
-{
+	return true;
 
 }
+
 
 
 
