@@ -116,7 +116,7 @@ function isDuplicate(combs, newSet)
 {
 	//loop through the sets
 	console.log("curSet is:" + combs);
-	console.log("set length is:" + combs.length);
+	console.log("curSet after sort" + combs.length);
 	//if it is empty, return false
 	if(combs.length == 0 )
 	{
@@ -124,21 +124,40 @@ function isDuplicate(combs, newSet)
 	}
 	for(var i= 0; i < combs.length; i ++)
 	{
-		//loop through the elements
-		//checking against each other
 		console.log("comb i" + combs[i]);
+		totalMatching = 0;
 		for(var j = 0; j < combs[i].length; j++)
 		{
 		console.log("comp, combs i {J} is :" + combs[i][j]);
 		console.log("newSet J  is:" + newSet[j]);
-		if(combs[i][j] != newSet[j])
+
+		if(combs[i][j] == newSet[j])
 		{
-			return false;
+			totalMatching++;
 		}
 
+		//this does not work because it will fail if ther first set is different
+		//loop through the elements
+		//checking against each other
+		// console.log("comb i" + combs[i]);
+		// for(var j = 0; j < combs[i].length; j++)
+		// {
+		// console.log("comp, combs i {J} is :" + combs[i][j]);
+		// console.log("newSet J  is:" + newSet[j]);
+		// if(combs[i][j] != newSet[j])
+		// {
+		// 	return false;
+		// }
+
+		}
+		console.log("combs i length is" + combs[i].length);
+		console.log("totalMatching is" + totalMatching);
+		if(totalMatching == combs[i].length)
+		{
+			return true;
 		}
 	}
-	return true;
+	return false;
 
 }
 
