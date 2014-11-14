@@ -18,22 +18,34 @@ var permutations = doMath(arr);
 console.log("permutations" + permutations);
 for(var i=0; i < permutations.length; i++)
 {
-	console.log("permutations i = " + permutations[i]);
-	for(var totalMax = 1; totalMax < permutations.length + 1; totalMax++)
+	//console.log("permutations i = " + permutations[i]);
+	for(var totalMax = 1; totalMax < arr.length + 1; totalMax++)
 	{
 		var sum = 0;
-		var subPerm = perm.slice(0, totalMax);
-		console.log("subPerm is:" + subPerm);
-		for(val in subPerm)
+		var subPerm = permutations[i].slice(0, totalMax);
+		//console.log("subPerm is:" + subPerm);
+		//subPerm.foreach()
+		for(val of subPerm)
 		{
-			console.log("curval is:" + val + "sum is:" + sum);
+			//console.log("curval is:" + val + "sum is:" + sum);
 			sum += val;
 		}
-		console.log("total is:" + Total + " curnum is:" + sum);
+		//console.log("total is:" + Total + " curnum is:" + sum);
 		if(sum == Total)
 		{
 			//add
-			console.log("found it" + subPerm);
+			//console.log("found it" + subPerm);
+			//console.log("sorted is:" + subPerm.sort);
+			//console.log(combs.indexOf(subPerm.sort));
+			var testing = subPerm.sort();
+			console.log("combs is" + combs);
+			console.log("val is" + testing);
+			console.log("index is" + combs.indexOf(testing));			
+			if(combs.indexOf(testing) == -1)
+			{
+			combs.push(testing);
+			console.log("adding:" + testing);
+			}
 		}
 	}
 
