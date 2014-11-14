@@ -4,8 +4,34 @@ function Calc()
 	var num = document.getElementById("Numbers").value;
 	var Total = parseFloat(foo);
 	var combs = [];
-	
-	var res = num.split(",");
+	//testing
+	//result = string.split(/\t/)
+	var res = num.split(/\t/);
+	var tabs = num.split(/\t/);
+	var commas = num.split(",");
+	var spaces = num.split(" ");
+	//alert("tabs" + res.length);
+	//alert("commas" + commas.length);
+	//alert("spaces" + spaces.length);
+
+	if(tabs.length > 1)
+	{
+		res = tabs;
+	}
+	else if(commas.length > 1)
+	{
+		res = commas;
+	}
+	else if(spaces.length > 1)
+	{
+		res  = spaces;
+	}
+	else
+	{
+		res = commas;
+	}
+
+	//var res = num.split(",");
 	//alert('res is'  + res);
 	var arr = [];
 	for(var i=0; i<=res.length - 1; i++) {
