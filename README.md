@@ -1,4 +1,4 @@
 CombinationTester
 =================
 
-Attempting to compute permutaion sums from a given set for a given total. unsure of feasability
+Computes permutation sums from a given set for a given total.
