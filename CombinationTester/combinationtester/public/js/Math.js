@@ -97,7 +97,7 @@ var returnVar = buildReturn(combs);
 document.getElementById("ResultsTable").innerHTML =  returnVar;
 //remove loading
 var Node = document.getElementById("loader1000");
-//Node.style.display = "none";
+Node.style.display = "none";
 console.log("should be hidden now ");
 }
 
