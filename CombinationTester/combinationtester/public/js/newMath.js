@@ -42,24 +42,24 @@ function Calc() {
     //alert('res is'  + res);
     var arr = [];
     for (var i = 0; i <= res.length - 1; i++) {
-    	var floatRep = parseFloat(res[i]);
-    	if(floatRep <= Total)
-    	{
-    		arr.push(floatRep);
-        	totalOperations++;
-    	}
+        var floatRep = parseFloat(res[i]);
+        if(floatRep <= Total)
+        {
+            arr.push(floatRep);
+            totalOperations++;
+        }
     }
 
 
     //get Permutations
-    var permutations = doMath(arr, totalOperations);
+    var permutations = doMath(arr, totalOperations, arr);
     console.log("total perms:" + permutations.length);
     //Go through all of the permutaions
     for (var i = 0; i < permutations.length; i++) {
         //start from the beginning of the array
         totalOperations++;
         for (var totalMax = 1; totalMax < arr.length + 1; totalMax++) {
-        	totalOperations++;
+            totalOperations++;
             var sum = 0;
             //Grab the current section of numbers
             var subPerm = permutations[i].slice(0, totalMax);
@@ -68,20 +68,20 @@ function Calc() {
             for (var j = 0; j < subPerm.length; j++)
             //for(val of subPerm)
             {
-            	totalOperations++;
+                totalOperations++;
                 //see if the totals match, gets around decimal problems
                 sum = (sum * 100 + subPerm[j] * 100) / 100;
                 //if you have already exceeded the total, break out
                 if(sum > Total)
                 {
-                	//console.log("Breaking loop");
-                	j = subPerm.length;
+                    //console.log("Breaking loop");
+                    j = subPerm.length;
                 }
             }
             if (sum == Total) {
                 //sort to make duplicate check easier
                 var sorted = subPerm.sort();
-                //Need to check if it exists in the solutions already	
+                //Need to check if it exists in the solutions already   
                 if (!isDuplicate(combs, sorted, totalOperations)) {
                     //new item, add to result
                     combs.push(sorted);
@@ -103,30 +103,74 @@ function Calc() {
 }
 
 //Handles doing the permutations and slicing recursively
-function doMath(input, totalOperations) {
+function doMath(input, totalOperations, arr) {
     var permArr = [],
-        usedChars = [];
+     usedChars = [];
+    var finalSet = [];
+    console.log("arr is :" + arr + ":");
+    function computeSums(permutations, arr)
+    {
+        console.log("before for loop arr is:" + arr + ":");
+        for (var totalMax = 1; totalMax < arr.length + 1; totalMax++) {
+            console.log("in for loop" + arr + " totalMax" + totalMax);
+            totalOperations++;
+            var sum = 0;
+            //Grab the current section of numbers
+            var subPerm = permutations[i].slice(0, totalMax);
 
-    function permute(input, totalOperations) {
+            //add the current section together
+            for (var j = 0; j < subPerm.length; j++)
+            //for(val of subPerm)
+            {
+                totalOperations++;
+                //see if the totals match, gets around decimal problems
+                sum = (sum * 100 + subPerm[j] * 100) / 100;
+                //if you have already exceeded the total, break out
+                if(sum > Total)
+                {
+                    //console.log("Breaking loop");
+                    j = subPerm.length;
+                }
+            }
+            if (sum == Total) {
+                //sort to make duplicate check easier
+                var sorted = subPerm.sort();
+                //Need to check if it exists in the solutions already   
+                if (!isDuplicate(finalSet, sorted, totalOperations)) {
+                    //new item, add to result
+                    finalSet.push(sorted);
+
+                }
+
+            }
+        }
+        console.log("at end of func:" + finalSet);
+    };
+
+    function permute(input, totalOperations, arr) {
         var i, ch;
         for (i = 0; i < input.length; i++) {
-        	totalOperations++;
+            totalOperations++;
             ch = input.splice(i, 1)[0];
             usedChars.push(ch);
             if (input.length == 0) {
-            	//if(!isDuplicate(permArr, usedChars.slice().sort(), totalOperations))
-            	//{
-            		//console.log("adding to set");
-                	permArr.push(usedChars.slice());
-            	//}
+                //if(!isDuplicate(permArr, usedChars.slice().sort(), totalOperations))
+                //{
+                    //console.log("adding to set");
+                    console.log("calling compute sums arr is :" + arr + ":");
+                    computeSums(usedChars.slice(), arr);
+                    permArr.push(usedChars.slice());
+                //}
             }
-            permute(input, totalOperations);
+            permute(input, totalOperations, arr);
             input.splice(i, 0, ch);
             usedChars.pop();
         }
         return permArr
     };
-    return permute(input);
+    console.log("just before first permute call:" + arr + ":");
+    permute(input, totalOperations, arr);
+    return finalSet;
 }
 
 
@@ -138,11 +182,11 @@ function isDuplicate(combs, newSet, totalOperations) {
     }
     //loop through array of sets
     for (var i = 0; i < combs.length; i++) {
-    	totalOperations++;
+        totalOperations++;
         totalMatching = 0;
         //loop through each set and compare
         for (var j = 0; j < combs[i].length; j++) {
-        	totalOperations++;
+            totalOperations++;
             //if the numbers are the same, increment the counter
             if (combs[i][j] == newSet[j]) {
                 totalMatching++;
@@ -165,7 +209,7 @@ function buildReturn(combs, totalOperations) {
 
         "</tr>";
     for (var i = 0; i < combs.length; i++) {
-    	totalOperations++;
+        totalOperations++;
         returnVar += "<tr>";
         returnVar += "<td>";
         returnVar += i;
