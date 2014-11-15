@@ -52,49 +52,13 @@ function Calc() {
 
 
     //get Permutations
-    var permutations = doMath(arr, totalOperations, arr);
+    var permutations = doMath(arr, totalOperations, Total);
     console.log("total perms:" + permutations.length);
-    //Go through all of the permutaions
-    for (var i = 0; i < permutations.length; i++) {
-        //start from the beginning of the array
-        totalOperations++;
-        for (var totalMax = 1; totalMax < arr.length + 1; totalMax++) {
-            totalOperations++;
-            var sum = 0;
-            //Grab the current section of numbers
-            var subPerm = permutations[i].slice(0, totalMax);
-
-            //add the current section together
-            for (var j = 0; j < subPerm.length; j++)
-            //for(val of subPerm)
-            {
-                totalOperations++;
-                //see if the totals match, gets around decimal problems
-                sum = (sum * 100 + subPerm[j] * 100) / 100;
-                //if you have already exceeded the total, break out
-                if(sum > Total)
-                {
-                    //console.log("Breaking loop");
-                    j = subPerm.length;
-                }
-            }
-            if (sum == Total) {
-                //sort to make duplicate check easier
-                var sorted = subPerm.sort();
-                //Need to check if it exists in the solutions already   
-                if (!isDuplicate(combs, sorted, totalOperations)) {
-                    //new item, add to result
-                    combs.push(sorted);
-                }
-
-            }
-        }
-    }
 
     //log total operations
     console.log("total operations: " + totalOperations);
     //build response and add it to page
-    var returnVar = buildReturn(combs, totalOperations);
+    var returnVar = buildReturn(permutations, totalOperations);
     document.getElementById("ResultsTable").innerHTML = returnVar;
     //remove loading
     var Node = document.getElementById("loader1000");
@@ -103,21 +67,25 @@ function Calc() {
 }
 
 //Handles doing the permutations and slicing recursively
-function doMath(input, totalOperations, arr) {
+function doMath(input, totalOperations, Total) {
     var permArr = [],
      usedChars = [];
     var finalSet = [];
-    console.log("arr is :" + arr + ":");
-    function computeSums(permutations, arr)
+    var arrLength = input.length;
+    var newTotal = Total;
+    var newTotalOps = totalOperations;
+    console.log("arr is :" + arrLength + ":");
+    function computeSums(permutations, arr, newTotal , totalOperations)
     {
-        console.log("before for loop arr is:" + arr + ":");
-        for (var totalMax = 1; totalMax < arr.length + 1; totalMax++) {
-            console.log("in for loop" + arr + " totalMax" + totalMax);
+        //console.log("before for loop arr is:" + arr + ":");
+        for (var totalMax = 1; totalMax < arr + 1; totalMax++) {
+            //console.log("in for loop" + arr + " totalMax" + totalMax);
             totalOperations++;
             var sum = 0;
             //Grab the current section of numbers
-            var subPerm = permutations[i].slice(0, totalMax);
-
+            //console.log(permutations + "permutations");
+            var subPerm = permutations.slice(0, totalMax);
+            //console.log(subPerm + "subPerm");
             //add the current section together
             for (var j = 0; j < subPerm.length; j++)
             //for(val of subPerm)
@@ -135,20 +103,25 @@ function doMath(input, totalOperations, arr) {
             if (sum == Total) {
                 //sort to make duplicate check easier
                 var sorted = subPerm.sort();
+                //console.log("num to add:" + sorted);
                 //Need to check if it exists in the solutions already   
                 if (!isDuplicate(finalSet, sorted, totalOperations)) {
                     //new item, add to result
+                    //console.log("num to add:" + sorted);
                     finalSet.push(sorted);
+                    //console.log("finalset after push:" + finalSet);
 
                 }
 
             }
         }
-        console.log("at end of func:" + finalSet);
+        //console.log("at end of func:" + finalSet);
+        return totalOperations;
     };
 
-    function permute(input, totalOperations, arr) {
+    function permute(input, totalOperations) {
         var i, ch;
+        //console.log("just inside perm :" + arr + ":");
         for (i = 0; i < input.length; i++) {
             totalOperations++;
             ch = input.splice(i, 1)[0];
@@ -157,19 +130,20 @@ function doMath(input, totalOperations, arr) {
                 //if(!isDuplicate(permArr, usedChars.slice().sort(), totalOperations))
                 //{
                     //console.log("adding to set");
-                    console.log("calling compute sums arr is :" + arr + ":");
-                    computeSums(usedChars.slice(), arr);
+                    //console.log("calling compute sums arr is :" + arr + ":");
+                    //console.log("calling compute sums teset is :" + arrLength + ":");
+                    totalOperations = computeSums(usedChars.slice(), arrLength, newTotal ,newTotalOps);
                     permArr.push(usedChars.slice());
                 //}
             }
-            permute(input, totalOperations, arr);
+            permute(input, totalOperations);
             input.splice(i, 0, ch);
             usedChars.pop();
         }
         return permArr
     };
-    console.log("just before first permute call:" + arr + ":");
-    permute(input, totalOperations, arr);
+    //console.log("just before first permute call:" + arr + ":");
+    permute(input, totalOperations);
     return finalSet;
 }
 
