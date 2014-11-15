@@ -1,0 +1,11 @@
+Number of Numbers:1 Number of ops: 4
+Number of Numbers:2 Number of ops: 14 
+Number of Numbers:3 Number of ops: 63
+Number of Numbers:4 Number of ops: 364 
+Number of Numbers:5 Number of ops: 2525
+Number of Numbers:6 Number of ops: 20166
+Number of Numbers:7 Number of ops: 181447
+Number of Numbers:8 Number of ops: 1814408 
+Number of Numbers:9 Number of ops: 19,958,409      new test:11,508,489 diff: 8,449,920
+Number of Numbers:10 Number of ops:239500810
+Number of Numbers:11 Number of ops:

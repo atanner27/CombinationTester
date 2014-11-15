@@ -12,6 +12,7 @@ function Calc() {
     var foo = document.getElementById("Total").value;
     var num = document.getElementById("Numbers").value;
 
+    var totalOperations = 0;
 
     var Total = parseFloat(foo);
     var combs = [];
@@ -41,16 +42,23 @@ function Calc() {
     //alert('res is'  + res);
     var arr = [];
     for (var i = 0; i <= res.length - 1; i++) {
-        arr.push(parseFloat(res[i]));
+    	var floatRep = parseFloat(res[i]);
+    	if(floatRep <= Total)
+    	{
+    		arr.push(floatRep);
+        	totalOperations++;
+    	}
     }
 
 
     //get Permutations
-    var permutations = doMath(arr);
+    var permutations = doMath(arr, totalOperations);
     //Go through all of the permutaions
     for (var i = 0; i < permutations.length; i++) {
         //start from the beginning of the array
+        totalOperations++;
         for (var totalMax = 1; totalMax < arr.length + 1; totalMax++) {
+        	totalOperations++;
             var sum = 0;
             //Grab the current section of numbers
             var subPerm = permutations[i].slice(0, totalMax);
@@ -59,14 +67,21 @@ function Calc() {
             for (var j = 0; j < subPerm.length; j++)
             //for(val of subPerm)
             {
+            	totalOperations++;
                 //see if the totals match, gets around decimal problems
                 sum = (sum * 100 + subPerm[j] * 100) / 100;
+                //if you have already exceeded the total, break out
+                if(sum > Total)
+                {
+                	//console.log("Breaking loop");
+                	j = subPerm.length;
+                }
             }
             if (sum == Total) {
                 //sort to make duplicate check easier
                 var sorted = subPerm.sort();
                 //Need to check if it exists in the solutions already	
-                if (!isDuplicate(combs, sorted)) {
+                if (!isDuplicate(combs, sorted, totalOperations)) {
                     //new item, add to result
                     combs.push(sorted);
                 }
@@ -74,8 +89,11 @@ function Calc() {
             }
         }
     }
+
+    //log total operations
+    console.log("total operations: " + totalOperations);
     //build response and add it to page
-    var returnVar = buildReturn(combs);
+    var returnVar = buildReturn(combs, totalOperations);
     document.getElementById("ResultsTable").innerHTML = returnVar;
     //remove loading
     var Node = document.getElementById("loader1000");
@@ -84,19 +102,20 @@ function Calc() {
 }
 
 //Handles doing the permutations and slicing recursively
-function doMath(input) {
+function doMath(input, totalOperations) {
     var permArr = [],
         usedChars = [];
 
-    function permute(input) {
+    function permute(input, totalOperations) {
         var i, ch;
         for (i = 0; i < input.length; i++) {
+        	totalOperations++;
             ch = input.splice(i, 1)[0];
             usedChars.push(ch);
             if (input.length == 0) {
                 permArr.push(usedChars.slice());
             }
-            permute(input);
+            permute(input, totalOperations);
             input.splice(i, 0, ch);
             usedChars.pop();
         }
@@ -107,16 +126,18 @@ function doMath(input) {
 
 
 //return true if it is a duplicate
-function isDuplicate(combs, newSet) {
+function isDuplicate(combs, newSet, totalOperations) {
     //if it is empty, return false
     if (combs.length == 0) {
         return false;
     }
     //loop through array of sets
     for (var i = 0; i < combs.length; i++) {
+    	totalOperations++;
         totalMatching = 0;
         //loop through each set and compare
         for (var j = 0; j < combs[i].length; j++) {
+        	totalOperations++;
             //if the numbers are the same, increment the counter
             if (combs[i][j] == newSet[j]) {
                 totalMatching++;
@@ -132,13 +153,14 @@ function isDuplicate(combs, newSet) {
 }
 
 //Take in the array of finished sets. build response
-function buildReturn(combs) {
+function buildReturn(combs, totalOperations) {
     //Build the table response
     var returnVar = "<tr>" +
         "<th>#</th>" + "<th>Combinations</th>" +
 
         "</tr>";
     for (var i = 0; i < combs.length; i++) {
+    	totalOperations++;
         returnVar += "<tr>";
         returnVar += "<td>";
         returnVar += i;
