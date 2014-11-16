@@ -49,7 +49,22 @@ function Calc() {
         	totalOperations++;
     	}
     }
+
+    function recursion(arr, n)
+    {
+
+        if(n == 0)
+        {
+            console.log("breaking:" + arr[n]);
+            return arr[n];
+        }
+        recursion(arr, n-1);
+    }
+
+
     arr = arr.sort();
+    var result = recursion(arr, arr.length);
+    console.log(result);
     var finalArr = [];
     var curSum = 0;
     for (var i = 0; i < arr.length; i++) {
@@ -63,7 +78,7 @@ function Calc() {
             finalArr.push(curArray);
         }
         //for (var j = arr.length - i; j >= 0; j--) {
-        for(var j = 1 + i; j < arr.length; j ++){
+        for(var j = i + 1; j < arr.length; j ++){
             curSum += arr[j];
             curArray.push(arr[j]);
             console.log("after adding J, curset is:" + curArray);
@@ -71,12 +86,11 @@ function Calc() {
                 finalArr.push(curArray);
             }
             console.log("array[j]:" + arr[j]);
-            
+            for(var k = j ; k < arr.length ; k ++)
+            {
+                console.log("array[k]:" + arr[k]);
+            }
         }
-        // for(var k = 2 + i; k > 0 && k < arr.length; k --)
-        //     {
-        //         console.log("array[k]:" + arr[k]);
-        //     }
     }
     console.log("finalarray:" + finalArr);
     for (var i = 0; i < finalArr.length ; i++)
