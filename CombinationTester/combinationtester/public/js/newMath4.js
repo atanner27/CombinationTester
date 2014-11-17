@@ -66,35 +66,50 @@ function Calc() {
     //var result = recursion(arr, arr.length);
     //console.log(result);
     var finalArr = [];
+
     var curSum = 0;
-    for (var i = 0; i < arr.length; i++) {
+    for (var i = arr.length -1; i > -1; i--) {
         console.log("array[i]:" + arr[i]);
         var curArray = [];
-        //for (var j= Things.length - 1; i >= 0; i--) {
-        curSum = arr[i];
-        curArray.push(arr[i]);
-        console.log("after adding i, curset is:" + curArray);
-        if (curSum == Total) {
-            finalArr.push(curArray);
-        }
+        // var curArray = [];
+        // //for (var j= Things.length - 1; i >= 0; i--) {
+        // curSum = arr[i];
+        // curArray.push(arr[i]);
+        // console.log("after adding i, curset is:" + curArray);
+        // if (curSum == Total) {
+        //     finalArr.push(curArray);
+        // }
         //for (var j = arr.length - i; j >= 0; j--) {
-        for(var j = i + 1; j < arr.length; j ++){
-            curSum += arr[j];
-            curArray.push(arr[j]);
-            console.log("after adding J, curset is:" + curArray);
-            if (curSum == Total) {
-                finalArr.push(curArray);
-            }
-            console.log("array[j]:" + arr[j]);
-            if(arr.length >= 3)
-            {
+            n = 0;
+        for(var n = 0; n < i ; n ++){
+            //console.log("array[i]:" + arr[i] + "array[n]:" + arr[n]);
+            curArray.push(arr[i-n]);
+            console.log("After adding set is:" + curArray);
+            console.log("adding:" + arr[i-n]);
+            console.log("array[i]:" + arr[i] + "array[i - n]:" + arr[i-n]);
+            // curSum += arr[j];
+            // curArray.push(arr[j]);
+            // console.log("after adding J, curset is:" + curArray);
+            // if (curSum == Total) {
+            //     finalArr.push(curArray);
+            // }
+            // console.log("array[j]:" + arr[j]);
+            // if(arr.length >= 3)
+            // {
 
-            for(var k = j ; k < arr.length ; k ++)
-            {
-                console.log("array[i]:" + arr[i] + "array[k]:" + arr[k]);
-            }
-            }   
+          
+            // }   
         }
+            for(var q =  i - 1 ; q > 1 ; q--)
+            {
+                //console.log("array[i]:" + arr[i] + "array[n]:" + arr[n] + "array[q]:" + arr[q]);
+                curArray.push(arr[i-q]);
+                console.log("After adding set is:" + curArray);
+                console.log("adding:" + arr[i-q]);  
+                console.log("array[i]:" + arr[i] + "array[n]:" + arr[n] + "array[m - q]:" + arr[i -q]);
+            }
+
+        
     }
     console.log("finalarray:" + finalArr);
     for (var i = 0; i < finalArr.length ; i++)
